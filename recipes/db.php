@@ -92,14 +92,14 @@ task('env:uri', function() {
         runLocally('cp .env ' . $tmp_dir . $local_env );
         download($config['shared_dir'] . '/.env', $tmp_dir . $remote_env);
 
-        $dotenvremote = new Dotenv\Dotenv($tmp_dir, $remote_env);
+        $dotenvremote = Dotenv\Dotenv::create($tmp_dir, $remote_env);
         if (file_exists($tmp_dir . $remote_env)) {
             $dotenvremote->overload();
             $dotenvremote->required(['WP_HOME']);
             set('remote_url', getenv('WP_HOME'));
         }
 
-        $dotenvlocal = new Dotenv\Dotenv($tmp_dir, $local_env);
+        $dotenvlocal = Dotenv\Dotenv::create($tmp_dir, $local_env);
         if (file_exists($tmp_dir . $local_env)) {
             $dotenvlocal->overload();
             $dotenvlocal->required(['WP_HOME']);
